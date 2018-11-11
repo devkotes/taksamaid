@@ -11,10 +11,45 @@
        <!-- Data table plugin-->
     <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/dataTables.bootstrap.min.js"></script>
+
     <script type="text/javascript">
-      $('#sampleTable').DataTable({
-        "ordering": false
-      });
+        $(document).ready(function(){
+            getRegister();   //pemanggilan fungsi tampil barang.
+             
+            $('#sampleTable').DataTable({
+              "ordering": false
+            });
+
+            function getRegister(){
+                $.ajax({
+                    type  : 'ajax',
+                    url   : '<?php echo base_url()?>pmb/getData',
+                    async : false,
+                    dataType : 'json',
+                    success : function(data){
+                        var html = '';
+                        var i;
+                        var j = 1;
+                        for(i=0; i<data.length; i++){
+                            html += '<tr>'+
+                                    '<td>'+j+'</td>'+
+                                    '<td>'+data[i].no_register+'</td>'+
+                                    '<td>'+data[i].name+'</td>'+
+                                    '<td>'+data[i].email+'</td>'+
+                                    '<td>'+data[i].start_dtm+'</td>'+
+                                    '<td align="center"><a href="#"><i class="fa fa-id-card-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail"></i></a> &nbsp; <a href="#"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a></td>'+
+                                    '</tr>';
+                          j++;
+                        }
+                        $('#showPMB').html(html);
+                    }
+     
+                });
+            }
+            $('[data-toggle="tooltip"]').tooltip();
+     
+        });
+     
     </script>
     <?php 
       }else if ($hal == 'admin') {?>

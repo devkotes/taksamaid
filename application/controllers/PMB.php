@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PMB extends CI_Controller {
 
+	function __construct(){
+        parent::__construct();
+        $this->load->model('m_register');
+    }
+
 	function index()
 	{
 		//$data['judul'] = "Penerimaan Mahasiswa Baru";
@@ -14,6 +19,11 @@ class PMB extends CI_Controller {
 			'footer'=> 'template/footer'
 		);
 		$this->load->view('template/index',$data);
+	}
+
+	function getData(){
+		$data = $this->m_register->getRegister();
+		echo json_encode($data);
 	}
 
 

@@ -10,7 +10,7 @@
           <a class="app-menu__item <?php if($this->uri->segment(1)=="admin"){echo "active";}?>" href="<?php echo site_url();?>admin"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a>
         </li>
         <li>
-          <a class="app-menu__item <?php if($this->uri->segment(1)=="pmb"){echo "active";}?>" href="<?php echo site_url();?>pmb"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Data PMB</span></a>
+          <a class="app-menu__item <?php if($this->uri->segment(1)=="pmb"){echo "active";}?>" href="<?php echo site_url();?>pmb"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Data Register</span></a>
         </li>
       </ul>
     </aside>

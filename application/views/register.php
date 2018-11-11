@@ -10,7 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/university/css/main.css" />
-
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 		<noscript><link rel="stylesheet" href="<?php echo base_url();?>assets/university/css/noscript.css" /></noscript>
 		<style>
 			img {
@@ -18,6 +18,9 @@
 			}
 			h1	{
 				color: #000000;
+			}
+			.swal-text{
+				text-align: center;
 			}
 		</style>
 	</head>
@@ -83,6 +86,7 @@
 							<section>
 								<h3>Data Diri</h3>
 								<form method="post" id="formRegister">
+									<input type="hidden" name="no_reg" value="<?php echo $no_reg;?>" />
 									<div class="row gtr-uniform gtr-50">
 										<div class="col-6">
 											<h1>Nama Lengkap<h1>
@@ -96,41 +100,40 @@
 
 										<div class="col-6">
 											<h1>Tempat Lahir</h1>
-											<input type="text" name="tempat_lahir" placeholder="Kota Tempat Lahir" />
+											<input type="text" name="birthplace" placeholder="Kota Tempat Lahir" />
 										</div> 
 
 										<div class="col-6">
 											<h1>Tanggal Lahir</h1>
-											<input type="text" name="tgl_lahir" placeholder="DD/MM/YYYY" />
+											<input type="text" name="birthday" id="tgl" />
 										</div> 
 
 										<div class="col-6">
 											<h1>Jenis Kelamin</h1>
 											
-											<input type="radio" id="Pria" name="jk" value="P" checked>
-											<label for="Pria">Pria</label>
-											<input type="radio" id="Wanita" name="jk" value="W">
-											<label for="Wanita">Wanita</label>
+											<input type="radio" id="Laki" name="gender" value="L" checked>
+											<label for="Laki">Laki-laki</label>
+											<input type="radio" id="Perempuan" name="gender" value="P">
+											<label for="Perempuan">Perempuan</label>
 
 										</div>
 
 										<div class="col-6">
 											<h1>Agama</h1>
-											<select name="agama">
-												<option value="">- Agama -</option>
-												<option value="Islam">Islam</option>
-												<option value="Protestan">Kristen Protestan</option>
-												<option value="Khatolik">Kristen Khatolik</option>
-												<option value="Budha">Budha</option>
-												<option value="Hindu">Hindu</option>
-
+											<select name="religion">
+												<option value="">- Pilih Agama -</option>
+												<?php
+												foreach ($rg as $row) {
+													echo "<option value='".$row->religion_id."'>".$row->name."</option>";
+												}
+												?>
 											</select>
 										</div>
 										
 
 										<div class="col-12">
 											<h1>Alamat Tinggal</h1>
-											<textarea name="alamat" placeholder="Alamat Sesuai KTP" rows="6" spellcheck="false"></textarea>
+											<textarea name="address" placeholder="Alamat Sesuai KTP" rows="6" spellcheck="false"></textarea>
 										</div>
 
 										<div class="col-6">
@@ -139,7 +142,7 @@
 										</div>
 
 										<div class="col-6">
-											<h1>Alamat Email</h1>
+											<h1>Email</h1>
 											<input type="email" name="email" placeholder="Email" />
 										</div>
 
@@ -170,14 +173,13 @@
 
 										<div class="col-6">
 											<h1>Jurusan Yang Dipilih</h1>
-											<select name="Jurusan" id="jurusan">
-												<option value="">- Jurusan -</option>
-												<option value="tif">S1 - Teknik Informatika</option>
-												<option value="si">S1 - Sistem Informasi</option>
-												<option value="dkv">S1 - DKV</option>
-												<option value="inggris">S1 - Bahasa Inggris</option>
-												<option value="jepang">S1 - Bahasa Jepang</option>
-												<option value="matematika">S1 - Matematika</option>
+											<select name="dep" id="dep">
+												<option value="">- Pilih Jurusan -</option>
+												<?php
+												foreach ($dp as $row) {
+													echo "<option value='".$row->department_id."'>".$row->name." - SI</option>";
+												}
+												?>
 
 											</select>
 										</div>
@@ -241,18 +243,27 @@
 			<script src="<?php echo base_url();?>assets/university/js/breakpoints.min.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/util.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/main.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 			<script src="https://unpkg.com/sweetalert@2.1.0/dist/sweetalert.min.js"></script>
 			<script type="text/javascript">
+				$("#tgl").flatpickr({
+					altInput: true,
+				    altFormat: "j F Y",
+				    dateFormat: "Y-m-d",
+				});
+				
 				$('#btnRegister').click(function(){
 					var data = $('#formRegister').serialize();
 					$.ajax({
 						type: 'post',
-						url: '<?php echo site_url();?>university/saveRegister',
+						url: '<?php echo site_url();?>university/addRegister',
 						data: data,
 						//dataType: 'json',
 						success: function(data){
 							resetForm();
-							swal("Deleted!", "Your imaginary file has been deleted.", "success");
+							swal("Success!", "Silahkan cek email yang sudah didaftarkan untuk proses selanjutnya", "success").then(function(){
+								location.reload();
+							});
 						}
 					})
 				});
