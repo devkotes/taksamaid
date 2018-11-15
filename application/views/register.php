@@ -84,7 +84,6 @@
 						</header>
 <!-- Form -->
 							<section>
-								<h3>Data Diri</h3>
 								<form method="post" id="formRegister">
 									<input type="hidden" name="no_reg" value="<?php echo $no_reg;?>" />
 									<div class="row gtr-uniform gtr-50">

@@ -39,13 +39,13 @@ class M_register extends CI_Model {
    			return $this->db->insert($table,$data);
 	}	
 
-
 	//untuk admin
 
 
 	function getRegister(){
 		 $this->db->select('*');
 		 $this->db->from('register');
+		 $this->db->join('status', 'status.status_id = register.status_id');
 		 $this->db->order_by('start_dtm', 'DESC');
 		 $query = $this->db->get();
 		 return $query->result();	

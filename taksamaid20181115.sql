@@ -86,9 +86,10 @@ CREATE TABLE `register` (
   `telp` varchar(15) DEFAULT NULL,
   `religion_id` int(3) DEFAULT NULL,
   `department_id` int(3) DEFAULT NULL,
+  `status_id` int(3) DEFAULT NULL,
   `start_dtm` datetime NOT NULL,
   PRIMARY KEY (`register_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +98,7 @@ CREATE TABLE `register` (
 
 LOCK TABLES `register` WRITE;
 /*!40000 ALTER TABLE `register` DISABLE KEYS */;
-INSERT INTO `register` VALUES (1,'REG1811120001',0,'sa','sa','sa','2018-11-14','P','sa','sa',2,1,'2018-11-12 04:49:40'),(2,'REG1811120002',0,'akkaka','sasa','kakak','2018-11-06','P','ssa','sasa',2,1,'2018-11-12 04:50:19'),(3,'REG1811120003',0,'sasa','sas','asasa','2018-11-19','P','sa','sasa',2,1,'2018-11-12 04:50:35'),(4,'REG1811120004',8383998,'kyunzi','sasa','kjskjdksjdsk','2018-11-04','P','sasa','sasa',3,2,'2018-11-12 05:13:14');
+INSERT INTO `register` VALUES (1,'REG1811120001',0,'sa','sa','sa','2018-11-14','P','sa','sa',2,1,2,'2018-11-12 04:49:40'),(2,'REG1811120002',0,'akkaka','sasa','kakak','2018-11-06','P','ssa','sasa',2,1,2,'2018-11-12 04:50:19'),(3,'REG1811120003',0,'sasa','sas','asasa','2018-11-19','P','sa','sasa',2,1,2,'2018-11-12 04:50:35'),(4,'REG1811120004',8383998,'kyunzi','sasa','kjskjdksjdsk','2018-11-04','P','sasa','sasa',3,2,2,'2018-11-12 05:13:14'),(5,'REG1811120005',33132,'dadadad','ss','cianjur','2018-11-01','P','ss','083172372',2,2,2,'2018-11-12 10:00:36'),(6,'REG1811120006',0,'','','','','L','','',0,0,2,'2018-11-12 11:24:47'),(7,'REG1811150007',2147483647,'Nanda Melawati','nanda@neuronworks.co.id','Cianjur','2018-11-02','P','Kp. Nyalindung','083817328667',3,1,1,'2018-11-15 09:02:51');
 /*!40000 ALTER TABLE `register` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,6 +125,31 @@ LOCK TABLES `religion` WRITE;
 /*!40000 ALTER TABLE `religion` DISABLE KEYS */;
 INSERT INTO `religion` VALUES (1,'Islam','Islam'),(2,'Kristen Katolik','Kristen Katolik'),(3,'Kristen Protestan','Kristen Protestan'),(4,'Hindu','Hindu'),(5,'Buddha','Buddha'),(6,'Kong Hu Cu','Kong Hu Cu');
 /*!40000 ALTER TABLE `religion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `status` (
+  `status_id` int(3) NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(45) NOT NULL,
+  `desc` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status`
+--
+
+LOCK TABLES `status` WRITE;
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (1,'Paid','Sudah Bayar'),(2,'Unpaid','Belum Dibayar');
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -169,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-12  6:00:58
+-- Dump completed on 2018-11-15 10:03:41

@@ -30,14 +30,20 @@
                         var html = '';
                         var i;
                         var j = 1;
+                        var status;
                         for(i=0; i<data.length; i++){
+                            if (data[i].status_id == '2') {
+                                status = '<span class="badge badge-danger">'+data[i].status_name+'</span>';
+                            } else{
+                                status = '<span class="badge badge-success">'+data[i].status_name+'</span>';
+                            }
                             html += '<tr>'+
                                     '<td>'+j+'</td>'+
                                     '<td>'+data[i].no_register+'</td>'+
                                     '<td>'+data[i].name+'</td>'+
-                                    '<td>'+data[i].email+'</td>'+
+                                    '<td>'+status+'</td>'+
                                     '<td>'+data[i].start_dtm+'</td>'+
-                                    '<td align="center"><a href="#"><i class="fa fa-id-card-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail"></i></a> &nbsp; <a href="#"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a></td>'+
+                                    '<td align="center"><a href="#"><i class="fa fa-id-card-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail" style="margin-right:10px"></i></a><a href="#"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" style="margin-right:10px"></i></a><a href="#"><i class="fa fa-money" data-toggle="tooltip" data-placement="top" title="" data-original-title="Payment"></i></a></td>'+
                                     '</tr>';
                           j++;
                         }
@@ -83,16 +89,16 @@
       };
       var pdata = [
         {
-          value: 300,
+          value: 1,
           color: "#46BFBD",
           highlight: "#5AD3D1",
-          label: "Complete"
+          label: "Paid"
         },
         {
-          value: 50,
+          value: 6,
           color:"#F7464A",
           highlight: "#FF5A5E",
-          label: "In-Progress"
+          label: "Unpaid"
         }
       ]
       
