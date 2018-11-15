@@ -19,7 +19,9 @@ class Admin extends CI_Controller {
 			'aside' => 'template/aside',
 			'content' => 'admin/dashboard',
 			'footer'=> 'template/footer',
-			'pmb' => $this->m_register->countPMB()
+			'pmb' => $this->m_register->countPMB(),
+			'paid' => $this->m_register->countPMBPaid(),
+			'unpaid' => $this->m_register->countPMBUnPaid(),
 		);
 		$this->load->view('template/index',$data);
 	}

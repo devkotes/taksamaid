@@ -5,6 +5,7 @@
     <script src="<?php echo base_url();?>assets/admin/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="<?php echo base_url();?>assets/admin/js/plugins/pace.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/sweetalert.min.js"></script>
     <?php
       $hal = $this->uri->segment(1);
       if ($hal == 'pmb') {?>
@@ -14,12 +15,12 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            getRegister();   //pemanggilan fungsi tampil barang.
+            getRegister(); 
              
             $('#sampleTable').DataTable({
               "ordering": false
             });
-
+            
             function getRegister(){
                 $.ajax({
                     type  : 'ajax',
@@ -31,11 +32,15 @@
                         var i;
                         var j = 1;
                         var status;
+                        var payment;
+
                         for(i=0; i<data.length; i++){
                             if (data[i].status_id == '2') {
                                 status = '<span class="badge badge-danger">'+data[i].status_name+'</span>';
+                                payment = '<a href="#"><i class="fa fa-envelope btnSend" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send Confirmed" style="margin-right:12px; color:#dc3545" data="'+data[i].no_register+'"></i></a>';
                             } else{
                                 status = '<span class="badge badge-success">'+data[i].status_name+'</span>';
+                                payment = '<a href="#"><i class="fa fa-envelope" style="margin-right:12px; opacity: 0.4; cursor: not-allowed; color:#6c757d;"></i></a>';
                             }
                             html += '<tr>'+
                                     '<td>'+j+'</td>'+
@@ -43,7 +48,7 @@
                                     '<td>'+data[i].name+'</td>'+
                                     '<td>'+status+'</td>'+
                                     '<td>'+data[i].start_dtm+'</td>'+
-                                    '<td align="center"><a href="#"><i class="fa fa-id-card-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail" style="margin-right:10px"></i></a><a href="#"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" style="margin-right:10px"></i></a><a href="#"><i class="fa fa-money" data-toggle="tooltip" data-placement="top" title="" data-original-title="Payment"></i></a></td>'+
+                                    '<td align="center"><a href="#"><i class="fa fa-id-card-o btnDetail" style="margin-right:10px; color: #7F2DD8" data="'+data[i].no_register+'" ></i></a><a href="#"><i class="fa fa-pencil btnEdit" style="margin-right:10px;color: #17a2b8" data="'+data[i].no_register+'" ></i></a>'+payment+'</td>'+
                                     '</tr>';
                           j++;
                         }
@@ -52,8 +57,65 @@
      
                 });
             }
-            $('[data-toggle="tooltip"]').tooltip();
-     
+
+            //Detail Register
+            $(document).delegate('.btnDetail', 'click', function(){
+                var id = $(this).attr('data');
+                alert(id);
+            })
+
+            //Edit Register
+           $(document).delegate('.btnEdit', 'click', function(){
+                var id = $(this).attr('data');
+                alert(id);
+            })
+
+             //Send Mail Confirmed Payment
+            $(document).delegate('.btnSend', 'click', function(){
+              var id = $(this).attr('data');              
+                $.ajax({
+                    type  : 'post',
+                    url   : '<?php echo base_url()?>pmb/sendConfirm/',
+                    async : false,
+                    data: {id: id},
+                    //dataType : 'json',
+                    success: function(data){
+                        sendMail(id);
+                        
+                    }
+                })
+                //alert(id);
+            })
+            function sendMail(id){
+             /*swal("Terima Kasih !!", "Nomor Registrasi "+id+" Sudah dibayar.", "success");*/
+             swal({
+              title: "Are you sure?",
+              text: "Send payment confirmation details with the registration number : "+id+"",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, send it!",
+              cancelButtonText: "No, cancel it!",
+              closeOnConfirm: false,
+              closeOnCancel: false
+              },
+              function (isConfirm) {
+                  if (isConfirm) {
+                     swal({
+                        title: "Thank You !!",
+                        text: "Registration Number "+id+" already Paid. Payment Confirmation detail sent via email",
+                        type: "success",
+                     },function(){
+                        location.reload();
+                     });
+                  }
+                  else {
+                      swal.close();
+                  }
+              });
+           }
+
+
         });
      
     </script>
@@ -62,7 +124,7 @@
       <!-- Page specific javascripts-->
     <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/chart.js"></script>
     <script type="text/javascript">
-      var data = {
+      /*var data = {
         labels: ["January", "February", "March", "April", "May"],
         datasets: [
           {
@@ -86,24 +148,24 @@
             data: [28, 48, 40, 19, 86]
           }
         ]
-      };
+      };*/
       var pdata = [
         {
-          value: 1,
+          value: <?php echo $paid;?>,
           color: "#46BFBD",
           highlight: "#5AD3D1",
           label: "Paid"
         },
         {
-          value: 6,
+          value: <?php echo $unpaid;?>,
           color:"#F7464A",
           highlight: "#FF5A5E",
           label: "Unpaid"
         }
       ]
       
-      var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-      var lineChart = new Chart(ctxl).Line(data);
+     /* var ctxl = $("#lineChartDemo").get(0).getContext("2d");
+      var lineChart = new Chart(ctxl).Line(data);*/
       
       var ctxp = $("#pieChartDemo").get(0).getContext("2d");
       var pieChart = new Chart(ctxp).Pie(pdata);
@@ -111,7 +173,6 @@
     <?php
       }
     ?>
-    <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/sweetalert.min.js"></script>
     <script type="text/javascript">
       //change password setting
       $('#btnUpdate').click(function(){

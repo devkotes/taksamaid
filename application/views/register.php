@@ -22,6 +22,18 @@
 			.swal-text{
 				text-align: center;
 			}
+			#btnRegister {
+				background-color: #1cb3f2;
+				box-shadow: none;
+				color: #ffffff !important;
+			}
+			.error{
+				color:#FF0000; 
+			}
+			input.error, select.error, textarea.error {
+			    color:#FF0000;
+			   	border-color: #FF0000;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -84,22 +96,22 @@
 						</header>
 <!-- Form -->
 							<section>
-								<form method="post" id="formRegister">
+								<form method="post" id="formRegister" action="#">
 									<input type="hidden" name="no_reg" value="<?php echo $no_reg;?>" />
 									<div class="row gtr-uniform gtr-50">
 										<div class="col-6">
-											<h1>Nama Lengkap<h1>
-											<input type="text" name="name" placeholder="Nama Lengkap" />
+											<h1>Nama Lengkap</h1>
+											<input type="text" name="name" placeholder="Nama Lengkap" id="name" />
 										</div>
 
 										<div class="col-6">
 											<h1>NIK</h1>
-											<input type="text" name="nik" placeholder="Nomor Induk Kewarganegaraan" />
+											<input type="text" name="nik" placeholder="Nomor Induk Kewarganegaraan" id="nik" />
 										</div>
 
 										<div class="col-6">
 											<h1>Tempat Lahir</h1>
-											<input type="text" name="birthplace" placeholder="Kota Tempat Lahir" />
+											<input type="text" name="birthplace" placeholder="Kota Tempat Lahir" id="birthplace" />
 										</div> 
 
 										<div class="col-6">
@@ -119,7 +131,7 @@
 
 										<div class="col-6">
 											<h1>Agama</h1>
-											<select name="religion">
+											<select name="religion" id="religion">
 												<option value="">- Pilih Agama -</option>
 												<?php
 												foreach ($rg as $row) {
@@ -132,17 +144,17 @@
 
 										<div class="col-12">
 											<h1>Alamat Tinggal</h1>
-											<textarea name="address" placeholder="Alamat Sesuai KTP" rows="6" spellcheck="false"></textarea>
+											<textarea name="address" placeholder="Alamat Sesuai KTP" rows="6" spellcheck="false" id="address"></textarea>
 										</div>
 
 										<div class="col-6">
 											<h1>Nomor Telepon / HP</h1> 
-											<input type="text" name="telepon" placeholder="+62xxxxxxxxxx" />
+											<input type="text" name="telepon" placeholder="+62xxxxxxxxxx" id="telepon" />
 										</div>
 
 										<div class="col-6">
 											<h1>Email</h1>
-											<input type="email" name="email" placeholder="Email" />
+											<input type="email" name="email" placeholder="Email" id="email" />
 										</div>
 
 										<div class="col-6">
@@ -158,16 +170,16 @@
 												<option value="s1">S1</option>
 
 											</select>
-										</div>											
+										</div>
 
 										<div class="col-6">
-											<h1>Nama Sekolah Asal<h1>
-											<input type="text" name="SA" placeholder="Nama Sekolah Asal" />
-										</div>
+											<h1>Nama Sekolah Asal</h1>
+											<input type="text" name="SA" placeholder="Nama Sekolah Asal" id="SA" />
+										</div>											
 
 										<div class="col-12">
 											<h1>Alamat Sekolah Asal</h1>
-											<textarea name="alamatSA" placeholder="Alamat Sekolah Asal" rows="6" spellcheck="false"></textarea>
+											<textarea name="alamatSA" id="alamatSA" placeholder="Alamat Sekolah Asal" rows="6" spellcheck="false"></textarea>
 										</div>
 
 										<div class="col-6">
@@ -182,36 +194,19 @@
 
 											</select>
 										</div>
-										
-								
-								
-								
-										<!--<div class="col-3">
-											<input type="checkbox" id="jk" name="p">
-											<label for="p">Pria</label>
+										<div class="col-12">
+											<input type="submit" value="Registrasi" id="btnRegister"/>
 										</div>
-
-										<div class="col-3">
-											<input type="checkbox" id="jk" name="w">
-											<label for="w">Wanita</label>
-										</div>
-										-->
-
-										
 									</div>
 								</form>
 							</section>
-
-
-						
-						 
-							<section>
+							<!--section>
 							
 								<ul class="actions">
 									<li><button class="button primary"	id="btnRegister"> Kirim </button></li>
 								</ul>
 								
-							</section>
+							</section-->
 
 						
 						
@@ -239,6 +234,7 @@
 			<script src="<?php echo base_url();?>assets/university/js/jquery.dropotron.min.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/jquery.scrollex.min.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/browser.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/breakpoints.min.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/util.js"></script>
 			<script src="<?php echo base_url();?>assets/university/js/main.js"></script>
@@ -251,9 +247,57 @@
 				    dateFormat: "Y-m-d",
 				});
 				
-				$('#btnRegister').click(function(){
-					var data = $('#formRegister').serialize();
-					$.ajax({
+				$( "#formRegister" ).validate({
+				  rules: {
+				    name: "required",
+				    email : {
+				    	required: true,
+      					email: true
+				    },
+				    nik : {
+				    	required: true,
+      					digits: true,
+      					minlength: 16
+				    },
+				    birthplace: "required",
+				    religion: "required",
+				    address: "required",
+				    telepon: {
+				    	required: true,
+      					digits: true,
+      					minlength: 11
+				    },
+				    SA: "required",
+				    alamatSA: "required",
+				    lulusan: "required",
+				    dep: "required"
+				  },
+				  messages: {
+				    name: "Silakan Masukkan Nama Lengkap Anda",
+				    email: {
+				      required: "Kami membutuhkan alamat email Anda untuk menghubungi Anda",
+				      email: "Alamat email Anda harus dalam format nama@domain.com"
+				    },
+				    nik: {
+				      required: "Silakan Masukkan NIK Anda dengan benar",
+				      digits: "Nomor Induk Kependudukan Anda harus angka",
+				      minlength: "Nomor Induk Kependudukan Anda harus 16 Digit"
+				    },
+				   	birthplace: "Silakan masukkan Tempat Lahir Anda dengan benar",
+				   	religion: "Silakan Pilih Agama",
+				   	address: "Silakan Masukkan Alamat Sesuai KTP",
+				   	telepon: {
+				   	  required: "Silakan Masukkan Nomor Telepon Anda dengan benar",
+				      digits: "Nomor Telepon harus angka",
+				      minlength: "Nomor Telepon minimal 11 Digit"
+				   	},
+				   	SA: "Silakan Masukkan Nama Sekolah Asal Anda dengan benar",
+				   	alamatSA: "Silakan Masukkan Alamat Sekolah Asal Anda dengan benar",
+				   	dep: "Silakan Pilih Jurusan",
+				  },
+				  submitHandler: function(form){
+				  	var data = $('#formRegister').serialize();
+				  	$.ajax({
 						type: 'post',
 						url: '<?php echo site_url();?>university/addRegister',
 						data: data,
@@ -265,6 +309,7 @@
 							});
 						}
 					})
+				  }
 				});
 				function resetForm(){
 					$('#formRegister')[0].reset();

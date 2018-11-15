@@ -89,7 +89,7 @@ CREATE TABLE `register` (
   `status_id` int(3) DEFAULT NULL,
   `start_dtm` datetime NOT NULL,
   PRIMARY KEY (`register_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `register` (
 
 LOCK TABLES `register` WRITE;
 /*!40000 ALTER TABLE `register` DISABLE KEYS */;
-INSERT INTO `register` VALUES (1,'REG1811120001',0,'sa','sa','sa','2018-11-14','P','sa','sa',2,1,2,'2018-11-12 04:49:40'),(2,'REG1811120002',0,'akkaka','sasa','kakak','2018-11-06','P','ssa','sasa',2,1,2,'2018-11-12 04:50:19'),(3,'REG1811120003',0,'sasa','sas','asasa','2018-11-19','P','sa','sasa',2,1,2,'2018-11-12 04:50:35'),(4,'REG1811120004',8383998,'kyunzi','sasa','kjskjdksjdsk','2018-11-04','P','sasa','sasa',3,2,2,'2018-11-12 05:13:14'),(5,'REG1811120005',33132,'dadadad','ss','cianjur','2018-11-01','P','ss','083172372',2,2,2,'2018-11-12 10:00:36'),(6,'REG1811120006',0,'','','','','L','','',0,0,2,'2018-11-12 11:24:47'),(7,'REG1811150007',2147483647,'Nanda Melawati','nanda@neuronworks.co.id','Cianjur','2018-11-02','P','Kp. Nyalindung','083817328667',3,1,1,'2018-11-15 09:02:51');
+INSERT INTO `register` VALUES (1,'REG1811120001',0,'sa','sa','sa','2018-11-14','P','sa','sa',2,1,1,'2018-11-12 04:49:40'),(2,'REG1811120002',0,'akkaka','sasa','kakak','2018-11-06','P','ssa','sasa',2,1,1,'2018-11-12 04:50:19'),(3,'REG1811120003',0,'sasa','sas','asasa','2018-11-19','P','sa','sasa',2,1,1,'2018-11-12 04:50:35'),(4,'REG1811120004',8383998,'kyunzi','sasa','kjskjdksjdsk','2018-11-04','P','sasa','sasa',3,2,2,'2018-11-12 05:13:14'),(5,'REG1811120005',33132,'dadadad','ss','cianjur','2018-11-01','P','ss','083172372',2,2,1,'2018-11-12 10:00:36'),(6,'REG1811120006',0,'','','','','L','','',0,0,2,'2018-11-12 11:24:47'),(7,'REG1811150007',2147483647,'Nanda Melawati','nanda@neuronworks.co.id','Cianjur','2018-11-02','P','Kp. Nyalindung','083817328667',3,1,2,'2018-11-15 09:02:51'),(8,'REG1811150008',12222,'sedi','ada@dadang.com','eeeee','2018-11-01','P','sssasasa','0838173283728',2,1,1,'2018-11-15 15:32:08'),(9,'REG1811150009',0,'','','','','L','','',0,0,1,'2018-11-15 16:24:24'),(10,'REG1811150010',2147483647,'Bobi Permana Sandi','bobipermana78@gmail.com','Cianjur','2018-10-31','L','Kp. Nyalindung','083817328667',1,3,1,'2018-11-15 18:35:48'),(11,'REG1811150011',2147483647,'Reni Safitri','refa@gmail.com','Jakarta','2018-11-02','P','Kota Baru','083817328848',1,2,1,'2018-11-15 18:43:41');
 /*!40000 ALTER TABLE `register` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-15 10:03:41
+-- Dump completed on 2018-11-16  3:46:40

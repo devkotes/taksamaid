@@ -56,6 +56,24 @@ class M_register extends CI_Model {
 		 $result = $this->db->query($sql);
 		 return $result->row()->no;
 	}
+	function countPMBPaid(){
+		 $sql = "Select count(no_register) as no from register where status_id='1'";
+		 $result = $this->db->query($sql);
+		 return $result->row()->no;
+	}
+	
+	function countPMBUnPaid(){
+		 $sql = "Select count(no_register) as no from register where status_id='2'";
+		 $result = $this->db->query($sql);
+		 return $result->row()->no;
+	}
+
+	function sendConfirm($id){
+		//echo $id;
+		$this->db->set('status_id', '1');  
+		$this->db->where('no_register', $id); 
+		$query = $this->db->update('register'); 
+	}
 
 
 

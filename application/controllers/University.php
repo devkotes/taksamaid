@@ -46,6 +46,7 @@ class University extends CI_Controller {
 			'address'			=> $address,
 			'telp'				=> $telp,
 			'department_id' 	=> $department,
+			'status_id'			=> '2',
 			'start_dtm'			=> date('Y-m-d H:i:s')
 		);
 		//print_r($data);

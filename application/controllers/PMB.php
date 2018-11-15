@@ -26,6 +26,17 @@ class PMB extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function sendConfirm(){
+		
+		$id = $this->input->post('id');
+		//echo $no_reg;
+		$data = $this->m_register->sendConfirm($id);
+		
+		
+	}
+
+
+
 
 
 }
