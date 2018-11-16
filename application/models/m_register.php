@@ -2,6 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_register extends CI_Model {
+
+	function countNotif(){
+		 $sql = "Select count(no_register) as notification from register where notif='1'";
+		 $result = $this->db->query($sql);
+		 return $result->row()->notification;
+	}
+
+	function detailNotif(){
+		 $this->db->select('*');
+		 $this->db->from('register');
+		 $this->db->where('notif','1');
+		 $this->db->order_by('start_dtm', 'DESC');
+		 $query = $this->db->get();
+		 return $query->result();
+	}
+
 	function getRegisterNo(){
 		$this->db->select('RIGHT(register.register_id,4) as kode', FALSE);
 		$this->db->order_by('register_id','DESC');    
@@ -40,12 +56,11 @@ class M_register extends CI_Model {
 	}	
 
 	//untuk admin
-
-
 	function getRegister(){
 		 $this->db->select('*');
 		 $this->db->from('register');
 		 $this->db->join('status', 'status.status_id = register.status_id');
+		 $this->db->where('notif','2');
 		 $this->db->order_by('start_dtm', 'DESC');
 		 $query = $this->db->get();
 		 return $query->result();	

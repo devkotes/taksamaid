@@ -21,9 +21,14 @@ class Admin extends CI_Controller {
 			'footer'=> 'template/footer',
 			'pmb' => $this->m_register->countPMB(),
 			'paid' => $this->m_register->countPMBPaid(),
-			'unpaid' => $this->m_register->countPMBUnPaid(),
+			'unpaid' => $this->m_register->countPMBUnPaid()
 		);
 		$this->load->view('template/index',$data);
+	}
+
+	function getNotif(){
+		$data = $this->m_register->detailNotif();
+		echo json_encode($data);
 	}
 
 	

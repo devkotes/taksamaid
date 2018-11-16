@@ -6,6 +6,47 @@
     <!-- The javascript plugin to display page loading on top-->
     <script src="<?php echo base_url();?>assets/admin/js/plugins/pace.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/sweetalert.min.js"></script>
+    <script type="text/javascript">
+      /*$('.notif').click(function(){
+          alert('test');
+      });*/
+
+      $(document).ready(function(){
+
+          getNotif();
+
+        function getNotif(){
+                $.ajax({
+                    type  : 'ajax',
+                    url   : '<?php echo base_url()?>admin/getNotif',
+                    async : false,
+                    dataType : 'json',
+                    success : function(data){
+                        var html = '';
+                        var i;
+                        for(i=0; i<data.length; i++){
+                            html += '<li>'+
+                                        '<a class="app-notification__item notif" href="javascript:;">'+
+                                            '<span class="app-notification__icon">'+
+                                              '<span class="fa-stack fa-lg" style="padding-top:10px">'+
+                                                '<i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i>'+
+                                              '</span>'+
+                                            '</span>'+
+                                              '<div>'+
+                                                '<p class="app-notification__message">Registration Number : <b>'+data[i].no_register+'</b></p>'+
+                                                '<p class="app-notification__meta">a few minutes ago</p>'+
+                                              '</div>'+
+                                          '</a>'+
+                                    '</li>';
+                        }
+                        $('#detailNotif').html(html);
+                    }
+     
+                });
+            }
+
+      });
+    </script>
     <?php
       $hal = $this->uri->segment(1);
       if ($hal == 'pmb') {?>

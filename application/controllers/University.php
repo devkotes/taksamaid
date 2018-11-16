@@ -47,6 +47,7 @@ class University extends CI_Controller {
 			'telp'				=> $telp,
 			'department_id' 	=> $department,
 			'status_id'			=> '2',
+			'notif'				=> '1',
 			'start_dtm'			=> date('Y-m-d H:i:s')
 		);
 		//print_r($data);
