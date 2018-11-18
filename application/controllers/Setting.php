@@ -21,7 +21,8 @@ class Setting extends CI_Controller {
 	}
 
 	function updatePassword(){
-		echo json_encode($_POST);
+		
+		//echo json_encode($_POST);
 
 	}
 

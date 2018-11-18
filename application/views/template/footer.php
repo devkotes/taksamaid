@@ -227,7 +227,7 @@
           dataType: 'json',
           data:data,
           success:function(result){
-            alert("Selamat, resgistari sukses");
+            //alert("Selamat, resgistari sukses");
           }
         });
       });
