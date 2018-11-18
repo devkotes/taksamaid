@@ -7,13 +7,20 @@
     <script src="<?php echo base_url();?>assets/admin/js/plugins/pace.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/sweetalert.min.js"></script>
     <script type="text/javascript">
-      /*$('.notif').click(function(){
-          alert('test');
-      });*/
 
       $(document).ready(function(){
-
           getNotif();
+
+          $(document).delegate('.notif','click',function(e){
+              var id = $(this).attr('data');
+              e.preventDefault();
+              $('#exampleModal').modal('show');
+              $("#exampleModal").appendTo("body");
+              $('.modal-body').html(id);
+              $("#exampleModal").on("hide.bs.modal", function () {
+                  location.reload();
+              });
+          });
 
         function getNotif(){
                 $.ajax({
@@ -26,7 +33,7 @@
                         var i;
                         for(i=0; i<data.length; i++){
                             html += '<li>'+
-                                        '<a class="app-notification__item notif" href="javascript:;">'+
+                                        '<a class="app-notification__item notif" href="javascript:;" data="'+data[i].no_register+'">'+
                                             '<span class="app-notification__icon">'+
                                               '<span class="fa-stack fa-lg" style="padding-top:10px">'+
                                                 '<i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i>'+
@@ -163,53 +170,49 @@
     <?php 
       }else if ($hal == 'admin') {?>
       <!-- Page specific javascripts-->
-    <script type="text/javascript" src="<?php echo base_url();?>assets/admin/js/plugins/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
     <script type="text/javascript">
-      /*var data = {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [
-          {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56]
+
+      var pData = {
+        labels: ["Unpaid", "Paid"],
+        datasets: [{
+          backgroundColor: ["#F7464A", "#46BFBD"],
+          data: [ <?php echo $unpaid.",".$paid?> ]
+        }]
+      };
+      var dData = {
+        labels: ["Teknik Informatika", "Teknik Industri","Teknik Elekto","Sastra Jepang", "Sastra Inggris","Matematika"],
+        datasets: [{
+          backgroundColor: ["#3b7eed", "#dded53", "#F7464A", "#46BFBD", "#6c757d", "#842282"],
+          data: [11,13,10,9,9,4]
+        }]
+      };
+
+
+      var options =  {
+          legend: {
+            display: 'true',
+            position: 'bottom',
+            labels: {
+                padding: 20
+            }
           },
-          {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86]
-          }
-        ]
-      };*/
-      var pdata = [
-        {
-          value: <?php echo $paid;?>,
-          color: "#46BFBD",
-          highlight: "#5AD3D1",
-          label: "Paid"
-        },
-        {
-          value: <?php echo $unpaid;?>,
-          color:"#F7464A",
-          highlight: "#FF5A5E",
-          label: "Unpaid"
-        }
-      ]
-      
-     /* var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-      var lineChart = new Chart(ctxl).Line(data);*/
-      
-      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-      var pieChart = new Chart(ctxp).Pie(pdata);
+          responsive: true,
+          maintainAspectRatio: false
+      }
+
+      var payment = new Chart(document.getElementById("paymentStatus"), {
+            type: 'pie',
+            data: pData,
+            options: options
+        });
+
+      var department = new Chart(document.getElementById("departmentChoosen"), {
+            type: 'pie',
+            data: dData,
+            options: options
+        });
+
     </script>
     <?php
       }

@@ -22,6 +22,11 @@ class University extends CI_Controller {
 
 	}
 
+	function confirm(){
+		$this->load->view('confirm');
+
+	}
+
 	function addRegister(){
 		$no_reg = $this->input->post('no_reg');
 		$email = $this->input->post('email');

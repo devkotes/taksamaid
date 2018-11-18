@@ -73,8 +73,8 @@
 								</ul>
 							</li>
 							
-							<li><a href="Konfirmasi.html">Konfirmasi Pendaftaran</a></li>
-							<li><a href="elements.html" class="button primary">Pendaftaran Online</a></li>
+							<li><a href="<?php echo site_url()?>/university/confirm">Konfirmasi Pendaftaran</a></li>
+							<li><a href="<?php echo site_url()?>/university/register" class="button primary">Pendaftaran Online</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -105,7 +105,7 @@
 										</div>
 
 										<div class="col-6">
-											<h1>NIK</h1>
+											<h1>Nomor Identitas (KTP/Kartu Pelajar/SIM)</h1>
 											<input type="text" name="nik" placeholder="Nomor Induk Kewarganegaraan" id="nik" />
 										</div>
 
@@ -148,7 +148,7 @@
 										</div>
 
 										<div class="col-6">
-											<h1>Nomor Telepon / HP</h1> 
+											<h1>Nomor HP</h1> 
 											<input type="text" name="telepon" placeholder="+62xxxxxxxxxx" id="telepon" />
 										</div>
 
@@ -256,8 +256,7 @@
 				    },
 				    nik : {
 				    	required: true,
-      					digits: true,
-      					minlength: 16
+      					digits: true
 				    },
 				    birthplace: "required",
 				    religion: "required",
@@ -265,7 +264,7 @@
 				    telepon: {
 				    	required: true,
       					digits: true,
-      					minlength: 11
+      					minlength: 10
 				    },
 				    SA: "required",
 				    alamatSA: "required",
@@ -279,9 +278,8 @@
 				      email: "Alamat email Anda harus dalam format nama@domain.com"
 				    },
 				    nik: {
-				      required: "Silakan Masukkan NIK Anda dengan benar",
-				      digits: "Nomor Induk Kependudukan Anda harus angka",
-				      minlength: "Nomor Induk Kependudukan Anda harus 16 Digit"
+				      required: "Silakan Masukkan Nomor Identitas Anda dengan benar",
+				      digits: "Nomor Induk Kependudukan Anda harus angka"
 				    },
 				   	birthplace: "Silakan masukkan Tempat Lahir Anda dengan benar",
 				   	religion: "Silakan Pilih Agama",
@@ -289,7 +287,7 @@
 				   	telepon: {
 				   	  required: "Silakan Masukkan Nomor Telepon Anda dengan benar",
 				      digits: "Nomor Telepon harus angka",
-				      minlength: "Nomor Telepon minimal 11 Digit"
+				      minlength: "Nomor Telepon minimal 10 Digit"
 				   	},
 				   	SA: "Silakan Masukkan Nama Sekolah Asal Anda dengan benar",
 				   	alamatSA: "Silakan Masukkan Alamat Sekolah Asal Anda dengan benar",
