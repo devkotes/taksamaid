@@ -28,18 +28,18 @@
       </div>
     </div>
     <div class="col-md-6 col-lg-3">
-      <div class="widget-small warning coloured-icon"><i class="icon fa fa-money fa-3x"></i>
+      <div class="widget-small warning coloured-icon"><i class="icon fa fa-graduation-cap fa-3x"></i>
         <div class="info">
           <h6>Faculty of Technology</h6>
-          <p><b>10</b></p>
+          <p><b><?php echo $ft;?></b></p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-3">
-      <div class="widget-small danger coloured-icon"><i class="icon fa fa-credit-card fa-3x"></i>
+      <div class="widget-small danger coloured-icon"><i class="icon fa fa-graduation-cap fa-3x"></i>
         <div class="info">
           <h6>Faculty of Education</h6>
-          <p><b>500</b></p>
+          <p><b><?php echo $fe;?></b></p>
         </div>
       </div>
     </div>

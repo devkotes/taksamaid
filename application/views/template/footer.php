@@ -11,12 +11,20 @@
       $(document).ready(function(){
           getNotif();
 
+          // Notif Detail Register
           $(document).delegate('.notif','click',function(e){
               var id = $(this).attr('data');
-              e.preventDefault();
+              $('.modal-title').text('New Data Register');
+              $.ajax({
+                   type: 'POST',
+                   url: '<?php echo base_url()?>admin/getNotifDetail',
+                   data: { id: id },
+                   success: function(response) { 
+                      $('#notifDetail').html(response);
+                   }
+              });        
               $('#exampleModal').modal('show');
               $("#exampleModal").appendTo("body");
-              $('.modal-body').html(id);
               $("#exampleModal").on("hide.bs.modal", function () {
                   location.reload();
               });
@@ -106,11 +114,23 @@
                 });
             }
 
-            //Detail Register
-            $(document).delegate('.btnDetail', 'click', function(){
-                var id = $(this).attr('data');
-                alert(id);
-            })
+
+            // Detail Register
+            $(document).delegate('.btnDetail','click',function(e){
+              var id = $(this).attr('data');
+              $('#exampleModal').modal('show');
+              $('.modal-title').text('Detail Register');
+              $("#exampleModal").appendTo("body");
+              $.ajax({
+                   type: 'POST',
+                   url: '<?php echo base_url()?>admin/getNotifDetail',
+                   data: { id: id },
+                   success: function(response) { 
+                      $('#notifDetail').html(response);
+                   }
+              });        
+
+          });
 
             //Edit Register
            $(document).delegate('.btnEdit', 'click', function(){
@@ -172,7 +192,6 @@
       <!-- Page specific javascripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
     <script type="text/javascript">
-
       var pData = {
         labels: ["Unpaid", "Paid"],
         datasets: [{
@@ -181,10 +200,10 @@
         }]
       };
       var dData = {
-        labels: ["Teknik Informatika", "Teknik Industri","Teknik Elekto","Sastra Jepang", "Sastra Inggris","Matematika"],
+        labels: ["Teknik Informatika","Teknik Elekto","DKV","Sastra Jepang", "Sastra Inggris","Matematika"],
         datasets: [{
           backgroundColor: ["#3b7eed", "#dded53", "#F7464A", "#46BFBD", "#6c757d", "#842282"],
-          data: [11,13,10,9,9,4]
+          data: [<?php echo $ti.",".$te.",".$dkv.",".$sj.",".$si.",".$mtk; ?>]
         }]
       };
 
@@ -220,16 +239,31 @@
     <script type="text/javascript">
       //change password setting
       $('#btnUpdate').click(function(){
-        var data = $('#formPassword').serialize();
-        $.ajax({
-          type: 'post',
-          url: '<?php echo site_url();?>setting/updatePassword',
-          dataType: 'json',
-          data:data,
-          success:function(result){
-            //alert("Selamat, resgistari sukses");
+        /*var data = $('#formPassword').serialize();*/
+        var np = $('#newPass').val();
+        var cp = $('#confirmPass').val();
+
+        if (np == cp) {
+            $.ajax({
+            type: 'post',
+            url: '<?php echo site_url();?>setting/updatePassword',
+            dataType: 'json',
+            data:{np: np, cp:cp},
+            success:function(result){
+              swal("Success !!", "Password has been changed", "success");//
+              swal({
+                title: "Success !!",
+                text: "Password has been changed",
+                type: "success",
+             },function(){
+                location.reload();
+             });
+            }
+          });
+          }else{
+              alert('password tidak sama');
           }
-        });
+        
       });
 
       function notifSuccess(){

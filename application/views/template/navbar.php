@@ -53,9 +53,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Data Register</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
       </div>
       <div class="modal-body">
+          <table id="notifDetail">
+            
+          </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

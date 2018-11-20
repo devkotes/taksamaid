@@ -188,7 +188,7 @@
 												<option value="">- Pilih Jurusan -</option>
 												<?php
 												foreach ($dp as $row) {
-													echo "<option value='".$row->department_id."'>".$row->name." - SI</option>";
+													echo "<option value='".$row->department_id."'>".$row->department_name." - SI</option>";
 												}
 												?>
 

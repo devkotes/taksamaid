@@ -22,7 +22,13 @@ class Setting extends CI_Controller {
 
 	function updatePassword(){
 		
-		//echo json_encode($_POST);
+		$pass = $this->input->post('np');
+		$where = array(
+			'password' => md5($pass)
+			 );
+
+		$data = $this->m_login->updatePassword($where);
+		echo json_encode($data);
 
 	}
 

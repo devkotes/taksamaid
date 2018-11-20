@@ -28,13 +28,13 @@
                     <div class="col-md-8 mb-4">
                       <label>New Password</label>
                        <div class="input-group">
-                        <input class="form-control" type="password" name="newPass" required=>
+                        <input class="form-control" type="password" name="newPass" id="newPass" required=>
                       </div>
                     </div>
                     <div class="col-md-8 mb-4">
                       <label>Confirm Password</label>
                        <div class="input-group">
-                        <input class="form-control" type="password" name="confirmPass" required>
+                        <input class="form-control" type="password" name="confirmPass" id="confirmPass" required>
                       </div>
                     </div>
                   </div>

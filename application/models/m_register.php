@@ -9,13 +9,22 @@ class M_register extends CI_Model {
 		 return $result->row()->notification;
 	}
 
-	function detailNotif(){
+	function getNotif(){
 		 $this->db->select('*');
 		 $this->db->from('register');
 		 $this->db->where('notif','1');
 		 $this->db->order_by('start_dtm', 'DESC');
 		 $query = $this->db->get();
 		 return $query->result();
+	}
+
+	function getNotifDetail($id){
+		 $this->db->select('*');
+		 $this->db->from('register');
+		 $this->db->join('department', 'department.department_id = register.department_id');
+		 $this->db->where('no_register',$id);
+		 $q = $this->db->get();
+		 return $q->row();
 	}
 
 	function getRegisterNo(){
@@ -65,24 +74,7 @@ class M_register extends CI_Model {
 		 $query = $this->db->get();
 		 return $query->result();	
 	}
-
-	function countPMB(){
-		 $sql = "Select count(no_register) as no from register";
-		 $result = $this->db->query($sql);
-		 return $result->row()->no;
-	}
-	function countPMBPaid(){
-		 $sql = "Select count(no_register) as no from register where status_id='1'";
-		 $result = $this->db->query($sql);
-		 return $result->row()->no;
-	}
 	
-	function countPMBUnPaid(){
-		 $sql = "Select count(no_register) as no from register where status_id='2'";
-		 $result = $this->db->query($sql);
-		 return $result->row()->no;
-	}
-
 	function sendConfirm($id){
 		//echo $id;
 		$this->db->set('status_id', '1');  
@@ -90,6 +82,11 @@ class M_register extends CI_Model {
 		$query = $this->db->update('register'); 
 	}
 
+	function updateNotif($id){
+		$this->db->set('notif', '2');  
+		$this->db->where('no_register', $id); 
+		$query = $this->db->update('register'); 
+	}
 
 
 }
