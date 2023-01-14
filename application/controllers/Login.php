@@ -10,6 +10,7 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
+		// TESTING CODE in VSCODE ONLINE COMMIT & PUSh
 		$this->load->view('template/login');
 	}
 	function aksi_login(){
